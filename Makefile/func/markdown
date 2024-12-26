@@ -1,0 +1,89 @@
+在 Makefile 中，`foreach`、`filter`、`filter-out`、`wildcard` 和 `patsubst` 函数用于处理和操作字符串、列表和文件名。下面是对这些函数的详细介绍：
+
+### 1. `foreach`
+
+`foreach` 函数用于对列表中的每个元素执行某个操作。
+
+**语法**：
+```makefile
+$(foreach var,list,text)
+```
+
+- `var`: 用于遍历的变量名。
+- `list`: 要遍历的列表。
+- `text`: 包含 `$(var)` 的文本，`var` 会被每个列表项替换。
+
+**示例**：
+```makefile
+SOURCES = a.c b.c c.c
+OBJECTS = $(foreach src, $(SOURCES), $(src:.c=.o))
+
+# OBJECTS 结果为 "a.o b.o c.o"
+```
+
+### 2. `filter` 和 `filter-out`
+
+这两个函数用于从一个列表中选择或排除特定的元素。
+
+- **`filter`**: 选择列表中与模式匹配的元素。
+  
+  **语法**：
+  ```makefile
+  $(filter pattern...,text)
+  ```
+
+- **`filter-out`**: 排除列表中与模式匹配的元素。
+  
+  **语法**：
+  ```makefile
+  $(filter-out pattern...,text)
+  ```
+
+**示例**：
+```makefile
+LIST = a b c d e
+SELECTED = $(filter a b c, $(LIST))        # 结果为 "a b c"
+EXCLUDED = $(filter-out b d, $(LIST))      # 结果为 "a c e"
+```
+
+### 3. `wildcard`
+
+`wildcard` 函数用于获取符合特定模式的文件名列表。
+
+**语法**：
+```makefile
+$(wildcard pattern)
+```
+
+**示例**：
+```makefile
+SRC_FILES = $(wildcard *.c)  # 会返回当前目录下所有 .c 文件
+```
+
+### 4. `patsubst`
+
+`patsubst` 函数用于模式替换，将字符串中的某些部分替换为其他值。
+
+**语法**：
+```makefile
+$(patsubst pattern,replacement,text)
+```
+
+- `pattern`: 要匹配的模式，通常使用 `%` 表示通配符。
+- `replacement`: 匹配后要替换成的字符串。
+- `text`: 要处理的文本。
+
+**示例**：
+```makefile
+FILES = a.c b.c c.c
+OBJECTS = $(patsubst %.c, %.o, $(FILES))  # 结果为 "a.o b.o c.o"
+```
+
+### 小结
+
+- **`foreach`**: 遍历列表并执行替换。
+- **`filter` 和 `filter-out`**: 选择或排除特定元素。
+- **`wildcard`**: 获取符合模式的文件列表。
+- **`patsubst`**: 执行模式替换。
+
+这些函数在 Makefile 中非常有用，可以使你的构建脚本更加灵活和强大。
