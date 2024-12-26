@@ -216,7 +216,7 @@ int main()
             perror("malloc failed");
             exit(1);
         }
-
+        // printf("Touchscreen device found\n");
         while(1)
         {
             // printf("*****************************\n");
