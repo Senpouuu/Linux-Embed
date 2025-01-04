@@ -4636,6 +4636,10 @@ static const unsigned char fontdata_8x16[FONTDATAMAX] = {
 
 static char OLED_GRAM[OLED_PAGE_SIZE][OLED_WIDTH];
 
+struct i2c_msg msg;
+
+
+
 void oled_write_cmd(int fd, unsigned char cmd)
 {
     int flag = ioctl(fd, F_GETFL);
