@@ -1,3 +1,11 @@
+/**------------------------------------------------------------------------
+ * ?                                ABOUT
+ * @author         :  Senpouuu
+ * @email          :  
+ * @repo           :  
+ * @createdOn      :  2025-1-11 18:22:43
+ * @description    :  Hello驱动实现
+ *------------------------------------------------------------------------**/
 #include <linux/module.h>
 #include <linux/fs.h>
 #include <linux/errno.h>
@@ -45,6 +53,7 @@ static ssize_t hello_drv_write(struct file *file, const char __user *buf, size_t
 static int hello_drv_close(struct inode *inode, struct file *file)
 {
     printk("%s,%s line %d\n",__FILE__,__FUNCTION__,__LINE__);
+    return 0;
 }
 
 static struct file_operations hello_drv_fops = {
@@ -53,11 +62,12 @@ static struct file_operations hello_drv_fops = {
     .read = hello_drv_read, 
     .write = hello_drv_write, 
     .release = hello_drv_close
-}
+};
 
 
 static int __init hello_drv_init(void)
 {
+    int err;
     printk("%s,%s line %d\n",__FILE__,__FUNCTION__,__LINE__);
     major = register_chrdev(major, "hello_drv", &hello_drv_fops);
     hello_drv_class = class_create(THIS_MODULE, "hello_drv");
@@ -83,4 +93,4 @@ static void __exit hello_drv_exit(void)
 module_init(hello_drv_init);
 module_exit(hello_drv_exit);
 
-MOUDLE_LICENSE("GPL");
+MODULE_LICENSE("GPL");
