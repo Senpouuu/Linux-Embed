@@ -1,6 +1,8 @@
 CC=arm-buildroot-linux-gnueabihf-gcc
 CFLAGS=
 
+all: oled_test at24c256 read_addr
+
 oled_test: oled_test.c
 	$(CC) $(CFLAGS) -o oled_test oled_test.c
 
@@ -12,4 +14,4 @@ read_addr: read_addr.c
 	$(CC) $(CFLAGS) -o read_addr read_addr.c
 
 clean:
-	rm -f oled_test at24c256
+	rm -f oled_test at24c256 read_addr

@@ -1,6 +1,8 @@
 CC = arm-buildroot-linux-gnueabihf-gcc
 CFLAGS = -lpthread
 
+all:lcd
+
 lcd:lcd.o
 	$(CC) $(CFLAGS) $< -o $@    
 

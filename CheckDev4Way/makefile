@@ -1,6 +1,8 @@
 CC=arm-buildroot-linux-gnueabihf-gcc
 CFLAGS=
 
+all:getinfo slpweak select poll epoll signal sigaction
+	
 getinfo:getinfo.c
 	$(CC) $(CFLAGS) $^ -o $@ 
 

@@ -1,6 +1,9 @@
 CC_ARM = arm-buildroot-linux-gnueabihf-gcc
-CC_x86 = gcc
+CC_x86 = arm-buildroot-linux-gnueabihf-gcc 
 CFLAGS = 
+
+all: msg_tcp_server msg_tcp_client msg_udp_server msg_udp_client msg_server_broadcast msg_client_broadcast msg_server_muticast msg_client_muticast
+
 
 msg_tcp_server: msg_tcp_server.c
 	$(CC_ARM) $(CFLAGS) -o msg_tcp_server msg_tcp_server.c

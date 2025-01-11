@@ -1,6 +1,8 @@
 CC = arm-buildroot-linux-gnueabihf-gcc
 CFLAGS = -lfreetype
 
+all: show_font
+
 show_font: show_font.o
 	$(CC) $(CFLAGS) $^ -o $@ 
 

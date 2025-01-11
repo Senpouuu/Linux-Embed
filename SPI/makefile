@@ -1,6 +1,8 @@
 CC=arm-buildroot-linux-gnueabihf-gcc
 CFLAGS=
 
+all: w25q32
+
 w25q32: w25q32.c
 	$(CC) $(CFLAGS) -o w25q32 w25q32.c 
 
