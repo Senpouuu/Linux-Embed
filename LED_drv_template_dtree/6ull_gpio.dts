@@ -1,0 +1,9 @@
+/{
+    gpio@5{
+		compatible = "gpio5,gpio5_led";
+		gclock = <0x020C406C>;
+		mux = <0x02290014>;
+		gdir = <0x020AC004>;
+		dr = <0x020AC000>;
+	};
+}
