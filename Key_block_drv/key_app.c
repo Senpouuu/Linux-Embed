@@ -3,8 +3,8 @@
  * @author         :  Senpouuu
  * @email          :  
  * @repo           :  
- * @createdOn      :  2025-1-16 22:55:38
- * @description    :  点灯测试程序,on/off参数点灯
+ * @createdOn      :  2025-3-1 17:04:07
+ * @description    :  block/nblock key driver application   
  *------------------------------------------------------------------------**/
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,9 +19,25 @@
 int main(int argc, char *argv[])
 {
     int fd;
-
     char key_stat = 0;
-    fd = open("/dev/key_drv", O_RDWR);
+    if(argc < 2)
+    {
+        printf("Usage: %s block/nblock\n", argv[0]);
+        exit(0);
+    }
+
+    if(strcmp(argv[1], "block") == 0)
+        fd = open("/dev/key_drv", O_RDWR);
+
+    else if(strcmp(argv[1], "nblock") == 0)
+        fd = open("/dev/key_drv", O_RDWR|O_NONBLOCK); 
+
+    else
+    {
+        printf("Usage: %s block/nblock\n", argv[0]);
+        exit(0);
+    }
+    
     if(fd < 0)
     {
         perror("open");

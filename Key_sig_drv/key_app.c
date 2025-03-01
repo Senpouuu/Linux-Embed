@@ -15,26 +15,50 @@
 #include <fcntl.h>
 #include <linux/types.h>
 #include <poll.h>
+#include <signal.h>
+
+void sig_term_handler(int signo)
+{
+    if(signo == SIGIO)
+        printf("SIGIO received\n");
+}
+
 
 int main(int argc, char *argv[])
 {
     int fd;
-
+    struct pollfd pfd;
     char key_stat = 0;
+    int oflags;
+
     fd = open("/dev/key_drv", O_RDWR);
     if(fd < 0)
     {
         perror("open");
         exit(1);
     }
-
-    while(1)
+    
+    if(fcntl(fd, F_SETOWN, getpid()) < 0) 
     {
-        printf("waiting for key input...\n");
-        key_stat = read(fd, &key_stat, 1);
-        printf("key_stat = %d\n", key_stat);
+        perror("fcntl");
+        exit(1);
+    }
+    oflags = fcntl(fd, F_GETFL, 0);
+    if(oflags < 0)
+    {
+        perror("fcntl");
+        exit(1);
     }
 
+    oflags |= FASYNC;
+    if(fcntl(fd, F_SETFL, oflags) < 0)
+    {
+        perror("fcntl");
+        exit(1);
+    }
+    
+    signal(SIGIO,sig_term_handler);
+    while(1); 
     close(fd);
     return 0;
 }

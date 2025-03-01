@@ -16,9 +16,11 @@
 #include <linux/types.h>
 #include <poll.h>
 
+
 int main(int argc, char *argv[])
 {
     int fd;
+    struct pollfd pfd;
 
     char key_stat = 0;
     fd = open("/dev/key_drv", O_RDWR);
@@ -28,11 +30,19 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
+    pfd.fd = fd;
+    pfd.events = POLLIN;
+
     while(1)
     {
         printf("waiting for key input...\n");
-        key_stat = read(fd, &key_stat, 1);
-        printf("key_stat = %d\n", key_stat);
+        poll(&pfd, 1, 1000);
+
+        if(pfd.revents & POLLIN)    
+        {
+            key_stat = read(fd, &key_stat, 1);
+            printf("key_stat = %d\n", key_stat);
+        }
     }
 
     close(fd);
