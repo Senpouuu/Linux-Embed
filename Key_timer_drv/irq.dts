@@ -1,0 +1,14 @@
+inctrl_leds: ledgrp {
+            fsl,pins = <
+                  MX6ULL_PAD_SNVS_TAMPER1__GPIO5_IO01        0x000110A0
+                  MX6ULL_PAD_SNVS_TAMPER3__GPIO5_IO03        0x000110A0
+            >;
+        };
+
+gpio5pctrl{
+        compatible = "gpio5_pctrl,gpio5_led_pctrl";
+        pinctrl-names = "default";
+        pinctrl-0 = <&pinctrl_leds>;
+        led-gpios = <&gpio5 3 GPIO_ACTIVE_LOW>;
+        key-gpios = <&gpio5 1 GPIO_ACTIVE_LOW>;
+    };
